@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+.bg-img {
+  background-image: url('./assets/handWith.jpeg'); /* If image is inside public/assets */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
