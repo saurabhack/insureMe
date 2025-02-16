@@ -8,21 +8,20 @@ import Unleashed from './Components/Unleashed'
 import Mission from './Components/Mission'
 import Cheers from './Components/Cheers'
 import Footer from './Components/Footer'
+import AboutUs from './Pages/AboutUs'
+import { Outlet } from 'react-router-dom'
 function App() {
   return (
     <>
     <div className="relative h-full overflow-y-auto antialiased">
-    <BrowserRouter>
+    
     <Navbar/>
-    </BrowserRouter>
-    <MainSection/>
-    <Partners/>
-    <InsurancePlans/>
-    <ContentRun/>
-    <Unleashed/>
-    <Mission/>
-    <Cheers/>
-    <Footer/>
+    <main>
+    <Outlet/>
+    </main>
+    <footer>
+      <Footer/>
+    </footer>
     </div>   
     </>
   )

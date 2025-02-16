@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react"; // Make sure you installed lucide-react: npm i lucide-react
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,20 +18,20 @@ function Navbar() {
 
         {/* Navigation Links - Hidden on small screens */}
         <ul className="hidden md:flex space-x-6 text-white">
-          <li className="hover:text-amber-400 transition-all cursor-pointer">Home</li>
-          <li className="hover:text-amber-400 transition-all cursor-pointer">About Us</li>
-          <li className="hover:text-amber-400 transition-all cursor-pointer">Claims</li>
-          <li className="hover:text-amber-400 transition-all cursor-pointer">Policies</li>
-          <li className="hover:text-amber-400 transition-all cursor-pointer">Contacts</li>
+        <Link to={"/"}><li className="hover:text-amber-400 transition-all cursor-pointer">Home</li></Link>  
+          <Link to={"/aboutUs"}><li className="hover:text-amber-400 transition-all cursor-pointer">About Us</li></Link>
+         <Link to={"/claims"}><li className="hover:text-amber-400 transition-all cursor-pointer">Claims</li></Link> 
+        <Link to={"/Policies"}><li className="hover:text-amber-400 transition-all cursor-pointer">Policies</li></Link>  
+         <Link to={"/ContactUs"}><li className="hover:text-amber-400 transition-all cursor-pointer">Contacts</li></Link> 
         </ul>
 
         {/* Buttons - Hidden on small screens */}
         <div className="hidden md:flex space-x-4">
           <button className="text-white border border-white py-2 px-4 transition-all hover:bg-white hover:text-black">
-            Login
+          <Link to={"/Login"}>Login</Link> 
           </button>
           <button className="text-white border border-white py-2 px-4 bg-red-500 font-semibold transition-all hover:bg-white hover:text-black">
-            Sign Up
+          <Link to={"/SignUp"}>Sign Up</Link>  
           </button>
         </div>
 
