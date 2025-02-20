@@ -4,6 +4,7 @@ async function registerUser(req, res) {
     console.log("body is here==",req.body)
     try {
         const { name, email, password,repassword } = req.body;
+        console.log("body after submitting the entire form == ",req.body)
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: 'User already exists' });

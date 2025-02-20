@@ -1,9 +1,16 @@
-import { useState } from "react";
-import { Menu, X } from "lucide-react"; // Make sure you installed lucide-react: npm i lucide-react
+import { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../contextAPI/context";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, logout } = useAuth(); // Access user and logout function
+
+  // Debugging user
+  useEffect(() => {
+    console.log("User from Navbar:", user);
+  }, [user]);
 
   return (
     <header className="fixed top-0 left-0 w-full bg-black shadow-lg z-50">
@@ -16,23 +23,37 @@ function Navbar() {
           </h1>
         </div>
 
-        {/* Navigation Links - Hidden on small screens */}
+        {/* Navigation Links */}
         <ul className="hidden md:flex space-x-6 text-white">
-        <Link to={"/"}><li className="hover:text-amber-400 transition-all cursor-pointer">Home</li></Link>  
-          <Link to={"/aboutUs"}><li className="hover:text-amber-400 transition-all cursor-pointer">About Us</li></Link>
-         <Link to={"/claims"}><li className="hover:text-amber-400 transition-all cursor-pointer">Claims</li></Link> 
-        <Link to={"/Policies"}><li className="hover:text-amber-400 transition-all cursor-pointer">Policies</li></Link>  
-         <Link to={"/ContactUs"}><li className="hover:text-amber-400 transition-all cursor-pointer">Contacts</li></Link> 
+          <Link to="/"><li className="hover:text-amber-400 transition-all cursor-pointer">Home</li></Link>  
+          <Link to="/aboutUs"><li className="hover:text-amber-400 transition-all cursor-pointer">About Us</li></Link>
+          <Link to="/claims"><li className="hover:text-amber-400 transition-all cursor-pointer">Claims</li></Link> 
+          <Link to="/Policies"><li className="hover:text-amber-400 transition-all cursor-pointer">Policies</li></Link>  
+          <Link to="/ContactUs"><li className="hover:text-amber-400 transition-all cursor-pointer">Contacts</li></Link> 
         </ul>
 
-        {/* Buttons - Hidden on small screens */}
-        <div className="hidden md:flex space-x-4">
-          <button className="text-white border border-white py-2 px-4 transition-all hover:bg-white hover:text-black">
-          <Link to={"/Login"}>Login</Link> 
-          </button>
-          <button className="text-white border border-white py-2 px-4 bg-red-500 font-semibold transition-all hover:bg-white hover:text-black">
-          <Link to={"/SignUp"}>Sign Up</Link>  
-          </button>
+        {/* Conditional Rendering for Authenticated User */}
+        <div className="hidden md:flex space-x-4 items-center">
+          {user ? (
+            <>
+              <span className="text-white font-semibold">👤 {user?.name || "User"}</span>
+              <button 
+                onClick={logout} 
+                className="text-white border border-white py-2 px-4 transition-all hover:bg-white hover:text-black"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <button className="text-white border border-white py-2 px-4 transition-all hover:bg-white hover:text-black">
+                <Link to="/Login">Login</Link> 
+              </button>
+              <button className="text-white border border-white py-2 px-4 bg-red-500 font-semibold transition-all hover:bg-white hover:text-black">
+                <Link to="/SignUp">Sign Up</Link>  
+              </button>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -41,21 +62,36 @@ function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile Menu - Only visible when isOpen is true */}
+      {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden bg-black w-full text-white py-3">
           <ul className="flex flex-col items-center space-y-4">
-            <li className="hover:text-amber-400 transition-all cursor-pointer">Home</li>
-            <li className="hover:text-amber-400 transition-all cursor-pointer">About Us</li>
-            <li className="hover:text-amber-400 transition-all cursor-pointer">Claims</li>
-            <li className="hover:text-amber-400 transition-all cursor-pointer">Policies</li>
-            <li className="hover:text-amber-400 transition-all cursor-pointer">Contacts</li>
-            <button className="text-white border border-white py-2 px-6 w-full max-w-[200px] transition-all hover:bg-white hover:text-black">
-              Login
-            </button>
-            <button className="text-white border border-white py-2 px-6 w-full max-w-[200px] bg-red-500 font-semibold transition-all hover:bg-white hover:text-black">
-              Sign Up
-            </button>
+            <Link to="/"><li className="hover:text-amber-400 transition-all cursor-pointer">Home</li></Link>
+            <Link to="/aboutUs"><li className="hover:text-amber-400 transition-all cursor-pointer">About Us</li></Link>
+            <Link to="/claims"><li className="hover:text-amber-400 transition-all cursor-pointer">Claims</li></Link>
+            <Link to="/Policies"><li className="hover:text-amber-400 transition-all cursor-pointer">Policies</li></Link>
+            <Link to="/ContactUs"><li className="hover:text-amber-400 transition-all cursor-pointer">Contacts</li></Link>
+            
+            {user ? (
+              <>
+                <span className="text-white font-semibold">👤 {user?.name || "User"}</span>
+                <button 
+                  onClick={logout} 
+                  className="text-white border border-white py-2 px-6 w-full max-w-[200px] transition-all hover:bg-white hover:text-black"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <button className="text-white border border-white py-2 px-6 w-full max-w-[200px] transition-all hover:bg-white hover:text-black">
+                  <Link to="/Login">Login</Link>
+                </button>
+                <button className="text-white border border-white py-2 px-6 w-full max-w-[200px] bg-red-500 font-semibold transition-all hover:bg-white hover:text-black">
+                  <Link to="/SignUp">Sign Up</Link>
+                </button>
+              </>
+            )}
           </ul>
         </div>
       )}

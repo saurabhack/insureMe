@@ -9,6 +9,8 @@ import LoginPage from "./Pages/LoginPage";
 import SignUp from "./Pages/SignUp";
 import PolicyDetails from "./Pages/PolicyDetails";
 import Confirmation from "./Pages/Confirmation";
+import ForgotPassword from "./Pages/ForgatePassword";
+import ResetPassword from "./Pages/ResetPassword";
 
 const router= createBrowserRouter([
     {
@@ -53,6 +55,14 @@ const router= createBrowserRouter([
             {
                 path:"/confirmation",
                 element:<Confirmation/>
+            },
+            {
+                path:"/forgate",
+                element:<ForgotPassword/>
+            },
+            {
+                path:"/reset-password/:email",
+                element:<ResetPassword/>
             }
             
         ]
