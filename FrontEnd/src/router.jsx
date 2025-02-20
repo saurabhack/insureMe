@@ -7,6 +7,8 @@ import Policies from "./Pages/Policies";
 import ContactUs from "./Pages/ContactUs";
 import LoginPage from "./Pages/LoginPage";
 import SignUp from "./Pages/SignUp";
+import PolicyDetails from "./Pages/PolicyDetails";
+import Confirmation from "./Pages/Confirmation";
 
 const router= createBrowserRouter([
     {
@@ -44,6 +46,14 @@ const router= createBrowserRouter([
                 path:"/SignUp",
                 element:<SignUp/>
             },
+            {
+                path:"/PolicyDetails/:id",
+                element:<PolicyDetails/>
+            },
+            {
+                path:"/confirmation",
+                element:<Confirmation/>
+            }
             
         ]
     }

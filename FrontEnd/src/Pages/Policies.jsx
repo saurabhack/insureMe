@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Policies() {
   const [selectedPolicy, setSelectedPolicy] = useState(null);
@@ -65,7 +66,7 @@ function Policies() {
         <h2 className="text-4xl font-semibold mb-6">Explore Our Policies</h2>
         <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {policies.map((policy) => (
-            <div
+           <Link to={`/PolicyDetails/${policy.id}`}> <div
               key={policy.id}
               className="p-6 bg-gray-800 rounded-lg shadow-lg hover:bg-gray-700 transition cursor-pointer"
               onClick={() => setSelectedPolicy(policy)}
@@ -73,6 +74,8 @@ function Policies() {
               <h3 className="text-xl font-semibold">{policy.title}</h3>
               <p className="mt-2 text-gray-300">{policy.description}</p>
             </div>
+            </Link>
+
           ))}
         </div>
       </section>
