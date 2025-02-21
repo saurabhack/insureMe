@@ -11,6 +11,7 @@ import PolicyDetails from "./Pages/PolicyDetails";
 import Confirmation from "./Pages/Confirmation";
 import ForgotPassword from "./Pages/ForgatePassword";
 import ResetPassword from "./Pages/ResetPassword";
+import History from "./Pages/History";
 
 const router= createBrowserRouter([
     {
@@ -63,6 +64,10 @@ const router= createBrowserRouter([
             {
                 path:"/reset-password/:email",
                 element:<ResetPassword/>
+            },
+            {
+                path:"/Parchased",
+                element:<History/>
             }
             
         ]

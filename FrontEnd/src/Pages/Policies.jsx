@@ -1,46 +1,23 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Policies() {
   const [selectedPolicy, setSelectedPolicy] = useState(null);
+  const [policies, setPolicies] = useState([]);
 
-  const policies = [
-    {
-      id: 1,
-      title: "Health Insurance",
-      description:
-        "Comprehensive health coverage for individuals and families. Covers hospitalization, medical expenses, and critical illnesses.",
-      details: "Covers hospital stays, surgeries, medications, and doctor consultations. Available for individuals and families.",
-    },
-    {
-      id: 2,
-      title: "Car Insurance",
-      description:
-        "Protects your vehicle against accidents, theft, and damages. Choose from third-party and comprehensive plans.",
-      details: "Covers damages to your vehicle and third-party liabilities. Includes roadside assistance and accident coverage.",
-    },
-    {
-      id: 3,
-      title: "Home Insurance",
-      description:
-        "Safeguard your home against natural disasters, theft, and fire. Covers structural and content damages.",
-      details: "Includes protection against fire, theft, and natural disasters. Option for home content coverage.",
-    },
-    {
-      id: 4,
-      title: "Life Insurance",
-      description:
-        "Financial security for your loved ones. Provides benefits in case of unfortunate events like death or disability.",
-      details: "Covers life protection, critical illness, and disability benefits. Various plans available for different needs.",
-    },
-    {
-      id: 5,
-      title: "Travel Insurance",
-      description:
-        "Stay covered while traveling. Includes medical emergencies, trip cancellations, and lost baggage coverage.",
-      details: "Covers medical emergencies, lost luggage, and trip cancellations. Available for domestic and international travel.",
-    },
-  ];
+  useEffect(() => {
+    async function getData() {
+      try {
+        const response = await axios.get('http://localhost:3000/allPolicies');
+        setPolicies(response.data.data);
+        console.log(response.data); // Log the fetched data
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+getData()    
+  }, []);
 
   return (
     <div className="bg-gray-900 text-white min-h-screen">
@@ -66,16 +43,15 @@ function Policies() {
         <h2 className="text-4xl font-semibold mb-6">Explore Our Policies</h2>
         <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {policies.map((policy) => (
-           <Link to={`/PolicyDetails/${policy.id}`}> <div
-              key={policy.id}
-              className="p-6 bg-gray-800 rounded-lg shadow-lg hover:bg-gray-700 transition cursor-pointer"
-              onClick={() => setSelectedPolicy(policy)}
-            >
-              <h3 className="text-xl font-semibold">{policy.title}</h3>
-              <p className="mt-2 text-gray-300">{policy.description}</p>
-            </div>
+            <Link key={policy.id} to={`/PolicyDetails/${policy._id}`}>
+              <div
+                className="p-6 bg-gray-800 rounded-lg shadow-lg hover:bg-gray-700 transition cursor-pointer"
+                onClick={() => setSelectedPolicy(policy)}
+              >
+                <h3 className="text-xl font-semibold">{policy.title}</h3>
+                <p className="mt-2 text-gray-300">{policy.description}</p>
+              </div>
             </Link>
-
           ))}
         </div>
       </section>
@@ -101,7 +77,8 @@ function Policies() {
       <section className="py-12 px-6 text-center">
         <h2 className="text-4xl font-semibold mb-6">Need Help?</h2>
         <p className="text-gray-300 max-w-2xl mx-auto mb-4">
-          If you need assistance in choosing the right policy, our support team is available 24/7.
+          If you need assistance in choosing the right policy, our support team
+          is available 24/7.
         </p>
         <a
           href="/contact"

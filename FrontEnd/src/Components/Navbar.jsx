@@ -29,7 +29,10 @@ function Navbar() {
           <Link to="/aboutUs"><li className="hover:text-amber-400 transition-all cursor-pointer">About Us</li></Link>
           <Link to="/claims"><li className="hover:text-amber-400 transition-all cursor-pointer">Claims</li></Link> 
           <Link to="/Policies"><li className="hover:text-amber-400 transition-all cursor-pointer">Policies</li></Link>  
-          <Link to="/ContactUs"><li className="hover:text-amber-400 transition-all cursor-pointer">Contacts</li></Link> 
+          <Link to="/ContactUs"><li className="hover:text-amber-400 transition-all cursor-pointer">Contacts</li></Link>
+          {
+            user ?<Link to="/Parchased"><li className="hover:text-amber-400 transition-all cursor-pointer">History</li></Link>:"" 
+          } 
         </ul>
 
         {/* Conditional Rendering for Authenticated User */}
@@ -71,6 +74,9 @@ function Navbar() {
             <Link to="/claims"><li className="hover:text-amber-400 transition-all cursor-pointer">Claims</li></Link>
             <Link to="/Policies"><li className="hover:text-amber-400 transition-all cursor-pointer">Policies</li></Link>
             <Link to="/ContactUs"><li className="hover:text-amber-400 transition-all cursor-pointer">Contacts</li></Link>
+            {
+            user ?<Link to="/Parchased"><li className="hover:text-amber-400 transition-all cursor-pointer">History</li></Link>:"" 
+            } 
             
             {user ? (
               <>

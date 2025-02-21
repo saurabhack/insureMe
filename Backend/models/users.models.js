@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { SchemaType } from "mongoose";
 const userSchema=mongoose.Schema({
     name:{
         type:String,
@@ -11,6 +11,9 @@ const userSchema=mongoose.Schema({
     password:{
         type:String,
         require:true,
+    },
+    parchaseId:{
+        type:[mongoose.SchemaTypes.ObjectId],
     }
 })
 
