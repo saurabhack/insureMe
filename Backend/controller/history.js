@@ -1,6 +1,5 @@
 import Policy from "../models/policies.model.js";
 import User from "../models/users.models.js";
-
 async function history(req, res) {
     try {
         const { id } = req.params;
