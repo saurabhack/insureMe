@@ -1,7 +1,33 @@
 import { FaUsers, FaClipboardList, FaPlusCircle } from "react-icons/fa";
 import DashboardCard from "../Components/DashboardCard";
-
+import { useEffect, useState } from "react";
+import axios from "axios"
 function Dashboard() {
+  const [totalUsers,setTotalUsers]=useState()
+  const [totalActivePolicy,setTotalActivePolicy]=useState()
+  async function findUsers(){
+    axios.get("http://localhost:3000/AllUsers").then((res)=>{
+      const data=res.data.allUsers
+      setTotalUsers(data.length)
+      console.log("total users",totalUsers)
+  }).catch(error=>{
+    console.error("something went wrong",error.message)
+  })
+  }
+
+  async function activePolicies(){
+    axios.get("http://localhost:3000/activePolicies").then((res)=>{
+      const data=res.data.allBuyers
+      console.log(data)
+      setTotalActivePolicy(data.length)
+    }).catch(error=>{
+      console.error("something went wrong",error.message)
+    })
+  }
+  useEffect(()=>{
+    findUsers()
+    activePolicies()
+  },[])
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <h2 className="text-3xl font-bold mb-6">Admin Dashboard</h2>
@@ -10,13 +36,13 @@ function Dashboard() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <DashboardCard
           title="Total Users"
-          count="1,250"
+          count={totalUsers}
           icon={<FaUsers className="text-white text-3xl" />}
           color="bg-blue-500"
         />
         <DashboardCard
           title="Active Policies"
-          count="420"
+          count={totalActivePolicy}
           icon={<FaClipboardList className="text-white text-3xl" />}
           color="bg-green-500"
         />

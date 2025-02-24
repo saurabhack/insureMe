@@ -6,11 +6,17 @@ const app=express()
 const port=3000
 const phone_pe_hostUrl=""
 app.use(express.json())
+const allowedOrigins = [
+    "http://localhost:5173", 
+    "http://localhost:5174"
+];
+
 app.use(cors({
-    origin: 'http://localhost:5173', // Allow frontend
-    methods: ['GET', 'POST'],
-    credentials: true
+    origin: allowedOrigins,  
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+    credentials: true 
 }));
+
 app.use("/",Router)
 app.listen(port,()=>{
     console.log(`server is listening on the port of http://localhost:${port}`)

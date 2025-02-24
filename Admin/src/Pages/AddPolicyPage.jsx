@@ -8,11 +8,9 @@ function AddPolicyPage() {
   const [duration, setDuration] = useState("");
   const [description, setDescription] = useState("");
   const [file, setFile] = useState(null);
-
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log({
@@ -26,7 +24,6 @@ function AddPolicyPage() {
     });
     alert("Policy Added Successfully!");
   };
-
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-900 text-white p-6">
       <div className="w-full max-w-2xl bg-gray-800 p-6 rounded-lg shadow-lg">
