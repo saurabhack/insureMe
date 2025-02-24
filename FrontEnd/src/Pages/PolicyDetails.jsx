@@ -14,7 +14,7 @@ function PolicyDetails() {
     if(!user){
       navigate('/login')
     }else{
-      navigate('/confirmation')
+      navigate(`/PayFor/${id}`)
     }
   }
   if (!policy) {

@@ -12,6 +12,8 @@ import Confirmation from "./Pages/Confirmation";
 import ForgotPassword from "./Pages/ForgatePassword";
 import ResetPassword from "./Pages/ResetPassword";
 import History from "./Pages/History";
+import BuyInsurancePage from "./Pages/BuyInsurancePage";
+import UPIPaymentPage from "./Pages/UPIPaymentPage";
 
 const router= createBrowserRouter([
     {
@@ -68,6 +70,14 @@ const router= createBrowserRouter([
             {
                 path:"/Parchased",
                 element:<History/>
+            },
+            {
+                path:"/PayFor/:id",
+                element:<BuyInsurancePage/>
+            },
+            {
+                path:"/UpiPayment/:id",
+                element:<UPIPaymentPage/>
             }
             
         ]

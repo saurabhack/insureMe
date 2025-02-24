@@ -10,6 +10,7 @@ import policiesData from "../controller/policiesData.js"
 import getByIdPolicies from "../controller/getByIdPolicies.js"
 import history from "../controller/history.js"
 import fetchHistory from "../controller/fetchHistory.js"
+import policyBuyers from "../controller/policyBuyers.js"
 const Router=express.Router()
 Router.post("/signUp",registerUser)
 Router.post("/contact",contact)
@@ -21,5 +22,6 @@ Router.post("/addPolicy",addPolicies)
 Router.get("/allPolicies",policiesData)
 Router.get("/getPolicyById/:id",getByIdPolicies)
 Router.post("/addHistory/:id",history)
-Router.get("/history",fetchHistory)
+Router.get("/history/:email",fetchHistory)
+Router.post("/policyBuy",policyBuyers)
 export default Router

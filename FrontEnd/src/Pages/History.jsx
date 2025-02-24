@@ -1,17 +1,23 @@
 import { useState, useEffect } from "react";
+import { useAuth } from "../contextAPI/context.jsx";
 import axios from "axios";
 
 function History() {
   const [policies, setPolicies] = useState([]);
-
+  const { user } = useAuth(); 
+  console.log("user is ==",user)
+  console.log("users email==",user.email)
+  const email=user.email
   useEffect(() => {
-    // Fetch policies from backend API
-    axios.get("http://localhost:3000/user-policies")
-      .then((res) => setPolicies(res.data))
-      .catch((err) => console.error("Error fetching policies:", err));
-  }, []);
+    async function fetchingData(){
 
-  // Function to check if policy is active
+      const data=await axios.get(`http://localhost:3000/history/${email}`)
+      console.log("data is here",data)
+      setPolicies(data.data.histories)
+      console.log("policies is here == ",policies)
+    }
+     fetchingData()
+  }, []);
   const isActive = (endDate) => new Date(endDate) >= new Date();
 
   return (
@@ -25,20 +31,20 @@ function History() {
           <div className="space-y-4">
             {policies.map((policy) => (
               <div
-                key={policy.id}
+                key={policy?.id}
                 className={`p-4 rounded-lg border ${
-                  isActive(policy.endDate) ? "border-green-500" : "border-red-500"
+                  isActive(policy?.endDate) ? "border-green-500" : "border-red-500"
                 }`}
               >
-                <h3 className="text-lg font-semibold">{policy.policyName}</h3>
-                <p className="text-gray-300">Start Date: {policy.startDate}</p>
-                <p className="text-gray-300">End Date: {policy.endDate}</p>
+                <h3 className="text-lg font-semibold">{policy.title}</h3>
+                <p className="text-gray-300">Start Date: {policy?.startingDate}</p>
+                <p className="text-gray-300">End Date: {policy?.endingDate}</p>
                 <p
                   className={`mt-2 font-bold ${
-                    isActive(policy.endDate) ? "text-green-400" : "text-red-400"
+                    isActive(policy?.endingDate) ? "text-green-400" : "text-red-400"
                   }`}
                 >
-                  {isActive(policy.endDate) ? "Active" : "Expired"}
+                  {isActive(policy?.endingDate) ? "Active" : "Expired"}
                 </p>
               </div>
             ))}
@@ -48,5 +54,4 @@ function History() {
     </div>
   );
 }
-
 export default History;

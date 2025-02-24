@@ -12,9 +12,13 @@ const userSchema=mongoose.Schema({
         type:String,
         require:true,
     },
-    parchaseId:{
-        type:[mongoose.SchemaTypes.ObjectId],
-    }
+    parchase:[
+        {
+            insuranceId:mongoose.SchemaTypes.ObjectId,
+            startedDate:{type:Date,default:Date.now},
+            endingDate:{type:Date}
+        }
+    ]
 })
 
 const User=mongoose.model("User",userSchema)
