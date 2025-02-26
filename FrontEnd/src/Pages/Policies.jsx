@@ -5,18 +5,17 @@ import { Link } from "react-router-dom";
 function Policies() {
   const [selectedPolicy, setSelectedPolicy] = useState(null);
   const [policies, setPolicies] = useState([]);
-
   useEffect(() => {
     async function getData() {
       try {
-        const response = await axios.get('http://localhost:3000/allPolicies');
+        const response = await axios.get("http://localhost:3000/allPolicies");
         setPolicies(response.data.data);
         console.log(response.data); // Log the fetched data
       } catch (error) {
         console.error(error.message);
       }
     }
-getData()    
+    getData();
   }, []);
 
   return (
@@ -43,11 +42,18 @@ getData()
         <h2 className="text-4xl font-semibold mb-6">Explore Our Policies</h2>
         <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {policies.map((policy) => (
-            <Link key={policy.id} to={`/PolicyDetails/${policy._id}`}>
+            <Link key={policy._id} to={`/PolicyDetails/${policy._id}`}>
               <div
                 className="p-6 bg-gray-800 rounded-lg shadow-lg hover:bg-gray-700 transition cursor-pointer"
                 onClick={() => setSelectedPolicy(policy)}
               >
+                {/* Policy Image */}
+                <img
+                  src={`http://localhost:3000/uploads/${policy.img}`}
+                  alt={policy.title}
+                  className="w-full h-48 object-cover rounded-md mb-4"
+                />
+                {console.log("Image Path:", policy.img)}
                 <h3 className="text-xl font-semibold">{policy.title}</h3>
                 <p className="mt-2 text-gray-300">{policy.description}</p>
               </div>

@@ -35,7 +35,7 @@ function PolicyDetails() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           {/* Insurance Image */}
           <img
-            src={policy.image}
+            src={`http://localhost:3000/uploads/${policy.img}`}
             alt={policy.name}
             className="w-full h-auto max-h-[400px] object-cover rounded-lg shadow-md"
           />
@@ -50,7 +50,7 @@ function PolicyDetails() {
               <p className="text-gray-700">{policy.coverage}</p>
 
               <p className="text-lg font-semibold mt-3">Premium Cost:</p>
-              <p className="text-gray-700">{policy.premium}</p>
+              <p className="text-gray-700">{policy.cost}</p>
 
               <p className="text-lg font-semibold mt-3">Terms & Conditions:</p>
               <p className="text-gray-700">{policy.terms}</p>

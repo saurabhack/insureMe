@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 
 function AddUserForm() {
@@ -11,10 +12,15 @@ function AddUserForm() {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
     console.log("User Data Submitted:", user);
     alert("User added successfully!");
+    axios.post('http://localhost:3000/createUser',{name:user.name,email:user.email}).then(()=>{
+      console.log("successfully created")
+    }).catch((error)=>{
+      console.error(error.message)
+    })
     setUser({ name: "", email: "", role: "User" }); // Reset form
   };
 

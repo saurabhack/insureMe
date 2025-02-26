@@ -19,6 +19,18 @@ const policySchema=mongoose.Schema({
     terms:{
         type:String,
         require:true
+    },
+    img:{
+        type:String,
+        require:true
+    },
+    type:{
+        type:String,
+        require:true
+    },
+    duration:{
+        type:String,
+        require:true
     }
 })
 const policy=mongoose.model('policy',policySchema)

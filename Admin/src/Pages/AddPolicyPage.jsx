@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 function AddPolicyPage() {
   const [policyName, setPolicyName] = useState("");
@@ -8,22 +9,37 @@ function AddPolicyPage() {
   const [duration, setDuration] = useState("");
   const [description, setDescription] = useState("");
   const [file, setFile] = useState(null);
+
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({
-      policyName,
-      policyType,
-      coverageAmount,
-      price,
-      duration,
-      description,
-      file,
-    });
-    alert("Policy Added Successfully!");
+  
+    const formData = new FormData();
+    formData.append("title", policyName);
+    formData.append("description", description);
+    formData.append("coverage", coverageAmount);
+    formData.append("cost", price);
+    formData.append("duration", duration);
+    formData.append("type", policyType);
+    if (file) {
+      formData.append("document", file);  // This must match backend field name
+    }
+  
+    try {
+      await axios.post("http://localhost:3000/createPolicies", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+  
+      alert("Policy Added Successfully!");
+    } catch (error) {
+      console.error("Something went wrong:", error.message);
+    }
   };
+  
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-900 text-white p-6">
       <div className="w-full max-w-2xl bg-gray-800 p-6 rounded-lg shadow-lg">
@@ -116,9 +132,11 @@ function AddPolicyPage() {
             <label className="block text-gray-300">Upload Policy Document</label>
             <input
               type="file"
+              name="document"
               onChange={handleFileChange}
               className="w-full p-2 bg-gray-700 text-white rounded cursor-pointer"
               accept=".pdf,.jpg,.png"
+              required
             />
           </div>
 
